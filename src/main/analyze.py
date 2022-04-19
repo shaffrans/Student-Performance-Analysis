@@ -160,7 +160,6 @@ def naive_predictor(X, y, classify=False):
         else:
             prediction = np.average(y_train)
     # set the prediction according to the previous term's grade
-    # TODO FIX THIS!
     if grades_available:
         if classify:
             y_pred = [int(float(grade) >= 10) for grade in X_test[:, 27]]
