@@ -177,7 +177,18 @@ def naive_predictor(X, y, classify=False):
         print(mean_squared_error(y_test, y_pred, squared=False))
 
 
+def write_processed_data(subject="math"):
+    X, y, labels = load_data(subject=subject, prior_grades=True)
+    X, y, labels = preprocess_data(X, y, labels, False, False)
+    data = np.append(X[:, :28], np.append(y.reshape(-1, 1), X[:, 28:], axis=1), axis=1)
+    labels = np.array(labels[:28] + ["G3"] + labels[28:]).reshape(1, -1)
+    data = np.append(labels, data, axis=0)
+    writer = csv.writer(open("../../data/preprocessed_" + subject + ".csv", "w+"))
+    writer.writerows(data)
+
+
 if __name__ == "__main__":
-    X, y, labels = load_data(prior_grades=True)
-    # decision_tree(X, y, labels, classify=True, forest=True)
-    naive_predictor(X, y, classify=True)
+    X, y, labels = load_data(prior_grades=False, subject="math")
+    decision_tree(X, y, labels, classify=False, forest=False)
+    # naive_predictor(X, y, classify=True)
+    # write_processed_data(subject="portuguese")

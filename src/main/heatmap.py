@@ -8,13 +8,12 @@ def load_data(subject="math"):
     # mathematics grades
     if subject == "math":
         filename = "student-mat.csv"
-    data = pd.read_csv("../../data/" + filename, sep=';')
+    data = pd.read_csv("../../data/" + filename)
     return data
 
 
 if __name__ == "__main__":
     data = load_data()
-    print(data)
     corr = data.corr()
     cmap = seaborn.diverging_palette(230, 20, as_cmap=True)
     plt.figure(figsize=(20, 5))
